@@ -1,7 +1,6 @@
 (declare-project
- :name "util"
- :description "A utility library for Janet"
-  :dependencies ["https://github.com/janet-lang/json.git"])
+  :name "util"
+  :description "A utility library for Janet")
 
 (declare-source
-  :source ["util" "util/cache"])
+  :source ["util"])

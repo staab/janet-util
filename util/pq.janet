@@ -1,5 +1,4 @@
 (import pq)
-(import codec)
 
 # Decoders/encoders
 
@@ -29,8 +28,8 @@
 (defn id [] (val "select uuid_generate_v4()"))
 
 (defn iter [query &opt opts & params]
-  (let [chunk-size (liter (get opts :chunk-size 100))
-        cur (ident (codec/encode (string (os/cryptorand 10))))
+  (let [cur (ident (id))
+        chunk-size (liter (get opts :chunk-size 100))
         get-chunk |(all (composite "FETCH FORWARD" chunk-size cur))]
     (var done? false)
     (exec (composite "DECLARE" cur "CURSOR FOR" query) ;params)
