@@ -1,6 +1,19 @@
 (import pq)
 
-# Decoders/encoders
+# Re-export some result meta functions from pq
+
+(def ntuples pq/result-ntuples)
+(def nfields pq/result-nfields)
+(def fname pq/result-fname)
+(def fnumber pq/result-fnumber)
+(def ftype pq/result-ftype)
+(def fformat pq/result-fformat)
+(def status pq/result-status)
+(def error-message pq/result-error-message)
+(def error-field pq/result-error-field)
+(def unpack pq/result-unpack)
+
+# Decoders
 
 (def *decoders* pq/*decoders*)
 (put pq/*decoders* 20 scan-number)   # int8
@@ -8,15 +21,19 @@
 (put pq/*decoders* 2950 string)      # uuid
 (put pq/*decoders* 1114 string)      # timestamp
 
+# Encoders
+
 (defn uuid [x] [2950 false x])
 (defn timestamp [x] [1114 false x])
 (def json pq/json)
 (def jsonb pq/jsonb)
 
-# General purpose
+# General purpose helpers
 
 (var conn nil)
 
+(defn connect [& args] (set conn (pq/connect ;args)))
+(defn disconnect [] (set conn nil) (pq/close conn))
 (defn ident [x] (pq/escape-identifier conn (string x)))
 (defn liter [s] (if (number? s) s (pq/escape-literal conn (string s))))
 (defn composite [& args] (string/join args " "))
