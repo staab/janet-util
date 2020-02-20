@@ -1,0 +1,6 @@
+(def json "application/json")
+(def html "text/html")
+(def css "text/css")
+(def svg "image/svg+xml")
+(def png "image/png")
+(def js "application/javascript")
