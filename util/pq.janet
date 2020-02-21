@@ -1,18 +1,5 @@
 (import pq)
 
-# Re-export some result meta functions from pq
-
-(def ntuples pq/result-ntuples)
-(def nfields pq/result-nfields)
-(def fname pq/result-fname)
-(def fnumber pq/result-fnumber)
-(def ftype pq/result-ftype)
-(def fformat pq/result-fformat)
-(def status pq/result-status)
-(def error-message pq/result-error-message)
-(def error-field pq/result-error-field)
-(def unpack pq/result-unpack)
-
 # Decoders
 
 (def *decoders* pq/*decoders*)
