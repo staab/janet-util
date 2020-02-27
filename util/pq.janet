@@ -7,11 +7,15 @@
 (put pq/*decoders* 1700 scan-number) # numeric
 (put pq/*decoders* 2950 string)      # uuid
 (put pq/*decoders* 1114 string)      # timestamp
+(put pq/*decoders* 1184 string)      # timestamp
+(put pq/*decoders* 1082 string)      # timestamp
 
 # Encoders
 
-(defn uuid [x] [2950 false x])
-(defn timestamp [x] [1114 false x])
+(defn uuid        [x] (if x [2950 false x] nil))
+(defn timestamp   [x] (if x [1114 false x] nil))
+(defn timestamptz [x] (if x [1184 false x] nil))
+(defn date        [x] (if x [1082 false x] nil))
 (def json pq/json)
 (def jsonb pq/jsonb)
 
@@ -54,5 +58,5 @@
            END,
            ` expires-field ` = now() at time zone 'utc' + INTERVAL '10 minute'
        WHERE id = $1
-       RETURNING ` code-field
-       (uuid id))))
+       RETURNING ` code-field)
+    (uuid id)))
